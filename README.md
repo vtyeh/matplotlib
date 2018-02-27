@@ -1,4 +1,7 @@
-
+## Pyber Ride Sharing
+- Looking at the bubble plot, we can see that as we move from rural to suburban to urban areas, there are more riders and drivers.
+- Also, the average fare price goes down as we move into urban cities.
+- Comparing the pie charts of total rides and total drivers, we see that there are more riders in urban areas than drivers, while there are more drivers than riders in urban and suburban areas.
 
 ```python
 # Import Dependencies
@@ -113,7 +116,7 @@ city_ride_df.head()
 
 
 
-
+## Bubble Plot of Ride Sharing Data
 ```python
 # Change average fare to numeric 
 city_ride_df['Average Fare ($) Per City'] = pd.to_numeric(city_ride_df['Average Fare ($) Per City'])
@@ -168,7 +171,7 @@ plt.show()
 ![png](Pyber_files/Pyber_2_0.png)
 
 
-
+## Total Fares by City Type
 ```python
 # Get sum of total fares from city_ride
 city_group = city_ride.groupby(['type'])
@@ -199,7 +202,7 @@ plt.show()
 ![png](Pyber_files/Pyber_3_0.png)
 
 
-
+## Total Rides by City Type
 ```python
 # Calculate % of total rides by city type
 # I could have just used groupby but here's a different way of doing it
@@ -237,7 +240,7 @@ plt.show()
 ![png](Pyber_files/Pyber_4_0.png)
 
 
-
+## Total Drivers by City Type
 ```python
 # Calculate % of total drivers by city type
 total_drivers = city_ride_df['Total Drivers Per City'].sum()
