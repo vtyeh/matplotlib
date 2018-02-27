@@ -157,6 +157,9 @@ legend.legendHandles[0]._sizes = [30]
 legend.legendHandles[1]._sizes = [30]
 legend.legendHandles[2]._sizes = [30]
 
+# Save figure
+plt.savefig("pyber_rideshare_data.png")
+
 # Show all bubble plots
 plt.show()
 ```
@@ -167,31 +170,26 @@ plt.show()
 
 
 ```python
-# Calculate % of total fares by city type
-total_fares = city_ride_df['Average Fare ($) Per City'].sum()
-u_fare = urban['Average Fare ($) Per City'].sum()
-u_slice = u_fare/total_fares * 100
+# Get sum of total fares from city_ride
+city_group = city_ride.groupby(['type'])
+fares = city_group['fare'].sum()
 
-sub_fare = suburban['Average Fare ($) Per City'].sum()
-sub_slice = sub_fare/total_fares * 100
+# Create pie chart
+labels = fares.index
+colors = ['gold', 'lightskyblue', 'lightcoral']
+explode = [0,0,0.1]
 
-r_fare = rural['Average Fare ($) Per City'].sum()
-r_slice = r_fare/total_fares * 100
-
-# Create pie chart 
-labels = ['Urban', 'Suburban', 'Rural']
-sizes = [u_slice, sub_slice, r_slice]
-colors = ['lightcoral', 'lightskyblue', 'gold']
-explode = (0, 0, 0.1)
-
-plt.pie(sizes, explode=explode, labels=labels, colors=colors,
-        autopct="%.1f%%", shadow=True, startangle=40)
+plt.pie(fares, explode=explode, colors=colors, labels=labels, 
+        startangle=-60, autopct='%1.1f%%', shadow=True)
 
 # Create title
 plt.suptitle('% of Total Fares by City Type')
 
 # Set axis to equal for a circular piechart
 plt.axis('equal')
+
+# Save figure
+plt.savefig("totalfares.png")
 
 # Show pie chart
 plt.show()
@@ -204,6 +202,7 @@ plt.show()
 
 ```python
 # Calculate % of total rides by city type
+# I could have just used groupby but here's a different way of doing it
 total_rides = city_ride_df['Total Rides Per City'].sum()
 u_ride = urban['Total Rides Per City'].sum()
 ur_slice = u_ride/total_rides * 100
@@ -215,10 +214,10 @@ r_ride = rural['Total Rides Per City'].sum()
 rr_slice = r_ride/total_rides * 100
 
 # Create pie chart
-labels = ['Urban', 'Suburban', 'Rural']
-sizes = [ur_slice, subr_slice, rr_slice]
-colors = ['lightcoral', 'lightskyblue', 'gold']
-explode = (0, 0, 0.1)
+labels = ['Urban', 'Rural', 'Suburban']
+sizes = [ur_slice, rr_slice, subr_slice]
+colors = ['lightcoral', 'gold', 'lightskyblue']
+explode = (0.1, 0, 0)
 
 plt.pie(sizes, explode=explode, labels=labels, colors=colors,
         autopct="%.1f%%", shadow=True, startangle=60)
@@ -226,6 +225,9 @@ plt.pie(sizes, explode=explode, labels=labels, colors=colors,
 # Create title and set axis to equal
 plt.suptitle('% of Total Rides by City Type')
 plt.axis('equal')
+
+# Save figure
+plt.savefig("totalrides.png")
 
 # Show pie chart
 plt.show()
@@ -249,10 +251,10 @@ r_drive = rural['Total Drivers Per City'].sum()
 rd_slice = r_drive/total_drivers * 100
 
 # Create pie chart
-labels = ['Urban', 'Suburban', 'Rural']
-sizes = [ud_slice, subd_slice, rd_slice]
-colors = ['lightcoral', 'lightskyblue', 'gold']
-explode = (0, 0, 0.1)
+labels = ['Urban', 'Rural','Suburban']
+sizes = [ud_slice, rd_slice, subd_slice]
+colors = ['lightcoral', 'gold', 'lightskyblue']
+explode = (0.1, 0, 0)
 
 plt.pie(sizes, explode=explode, labels=labels, colors=colors,
         autopct="%.1f%%", shadow=True, startangle=40)
@@ -260,6 +262,9 @@ plt.pie(sizes, explode=explode, labels=labels, colors=colors,
 # Create title and set axis to equal
 plt.suptitle('% of Total Drivers by City Type')
 plt.axis('equal')
+
+# Save figure
+plt.savefig("totalrides.png")
 
 # Show pie chart
 plt.show()
